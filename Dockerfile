@@ -18,8 +18,8 @@ RUN apt-get update &&  apt-get install --no-install-recommends -y \
     
 RUN adduser shinken
 
-RUN curl -O https://www.monitoring-plugins.org/download/monitoring-plugins-2.1.1.tar.gz
-RUN tar -xzf monitoring-plugins-2.1.1.tar.gz && cd monitoring-plugins-2.1.1 && ./configure && make && make install
+#RUN curl -O https://www.monitoring-plugins.org/download/monitoring-plugins-2.1.1.tar.gz
+#RUN tar -xzf monitoring-plugins-2.1.1.tar.gz && cd monitoring-plugins-2.1.1 && ./configure && make && make install
 
 RUN pip install shinken
 
