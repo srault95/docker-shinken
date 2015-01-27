@@ -14,7 +14,10 @@ RUN apt-get update &&  apt-get install --no-install-recommends -y \
     python-pycurl \
     python-cherrypy3 \
     nagios-plugins \
+    nagios-plugins-extra \
     libsys-statistics-linux-perl
+    
+#nagios-plugins-contrib    
 
 RUN adduser shinken
 
@@ -44,9 +47,10 @@ RUN mkdir -p /etc/shinken/custom_configs /usr/local/custom_plugins && \
     ln -sf /etc/shinken/custom_configs/htpasswd.users /etc/shinken/htpasswd.users
 
 ADD config/conf/extra_plugins/* /usr/lib/nagios/plugins/
-RUN cd /usr/lib/nagios/plugins/ && \
-    chmod a+x * && \
-    chmod u+s check_apt restart_service check_ping check_icmp check_fping apt_update
+
+RUN cd /usr/lib/nagios/plugins/ && chmod a+x * && \
+    chmod u+s check_apt restart_service check_ping check_icmp apt_update
+# check_fping    
 
 RUN rm -f /etc/nginx/sites-enabled/* /etc/nginx/sites-available/*
 ADD config/conf/nginx.conf /etc/nginx/
