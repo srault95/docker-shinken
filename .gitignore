@@ -1,0 +1,4 @@
+/archives
+*.py[co]
+*.log
+*.egg-info
