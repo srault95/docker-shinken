@@ -40,9 +40,13 @@ ADD config/conf/shinken/poller-master.cfg /etc/shinken/pollers/poller-master.cfg
 ADD config/conf/shinken/scheduler-master.cfg /etc/shinken/schedulers/scheduler-master.cfg
 ADD config/conf/shinken/webui.cfg /etc/shinken/modules/webui.cfg
 
-#RUN         mkdir -p /etc/shinken/custom_configs /usr/local/custom_plugins && \
-#                ln -sf /etc/shinken/custom_configs/htpasswd.users /etc/shinken/htpasswd.users
+RUN mkdir -p /etc/shinken/custom_configs /usr/local/custom_plugins && \
+    ln -sf /etc/shinken/custom_configs/htpasswd.users /etc/shinken/htpasswd.users
 
+ADD config/conf/extra_plugins/* /usr/lib/nagios/plugins/
+RUN cd /usr/lib/nagios/plugins/ && \
+    chmod a+x * && \
+    chmod u+s check_apt restart_service check_ping check_icmp check_fping apt_update
 
 RUN rm -f /etc/nginx/sites-enabled/* /etc/nginx/sites-available/*
 ADD config/conf/nginx.conf /etc/nginx/
@@ -51,6 +55,7 @@ ADD config/setup.d/shinken /etc/setup.d/20-shinken
 ADD config/setup.d/nginx /etc/setup.d/30-nginx
 RUN chmod +x /etc/setup.d/*
 
+VOLUME      ["/etc/shinken/custom_configs", "/usr/local/custom_plugins"]
 
 EXPOSE  80
 
