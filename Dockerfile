@@ -45,9 +45,9 @@ RUN su - shinken -c 'shinken --init' && \
     su - shinken -c 'shinken install booster-nrpe'
 
 ADD config/conf/shinken/shinken.cfg /etc/shinken/shinken.cfg
-#ADD config/conf/shinken/broker-master.cfg /etc/shinken/brokers/broker-master.cfg
-#ADD config/conf/shinken/poller-master.cfg /etc/shinken/pollers/poller-master.cfg
-#ADD config/conf/shinken/scheduler-master.cfg /etc/shinken/schedulers/scheduler-master.cfg
+ADD config/conf/shinken/broker-master.cfg /etc/shinken/brokers/broker-master.cfg
+ADD config/conf/shinken/poller-master.cfg /etc/shinken/pollers/poller-master.cfg
+ADD config/conf/shinken/scheduler-master.cfg /etc/shinken/schedulers/scheduler-master.cfg
 ADD config/conf/shinken/webui.cfg /etc/shinken/modules/webui.cfg
 ADD config/conf/shinken/htpasswd.users /etc/shinken/htpasswd.users
 
