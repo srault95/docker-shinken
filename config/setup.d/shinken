@@ -1,9 +1,9 @@
 #!/bin/bash
 
 echo "---> Config circusd ..."
-envtpl /etc/circus.d/shinken-arbiter.ini.tpl --keep-template --allow-missing
-envtpl /etc/circus.d/shinken-broker.ini.tpl --keep-template --allow-missing
-envtpl /etc/circus.d/shinken-poller.ini.tpl --keep-template --allow-missing
-envtpl /etc/circus.d/shinken-reactionner.ini.tpl --keep-template --allow-missing
-envtpl /etc/circus.d/shinken-receiver.ini.tpl --keep-template --allow-missing
-envtpl /etc/circus.d/shinken-scheduler.ini.tpl --keep-template --allow-missing
+envtpl /etc/supervisor/conf.d/shinken-arbiter.conf.tpl --keep-template --allow-missing
+envtpl /etc/supervisor/conf.d/shinken-broker.conf.tpl --keep-template --allow-missing
+envtpl /etc/supervisor/conf.d/shinken-poller.conf.tpl --keep-template --allow-missing
+envtpl /etc/supervisor/conf.d/shinken-reactionner.conf.tpl --keep-template --allow-missing
+envtpl /etc/supervisor/conf.d/shinken-receiver.conf.tpl --keep-template --allow-missing
+envtpl /etc/supervisor/conf.d/shinken-scheduler.conf.tpl --keep-template --allow-missing

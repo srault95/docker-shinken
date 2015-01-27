@@ -1,4 +1,5 @@
-FROM srault95/docker-circus-base
+#FROM srault95/docker-circus-base
+FROM srault95/supervisor-base
 
 MAINTAINER <stephane.rault@radicalspam.org>
 
@@ -6,8 +7,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN \
   apt-get update -y && \
-  apt-get install -y --no-install-recommends software-properties-common && \
-  add-apt-repository -y ppa:nginx/stable
+  add-apt-repository -y ppa:nginx/development
 
 RUN apt-get update &&  apt-get install --no-install-recommends -y \
     nginx \
@@ -17,8 +17,6 @@ RUN apt-get update &&  apt-get install --no-install-recommends -y \
     nagios-plugins-extra \
     libsys-statistics-linux-perl
     
-#nagios-plugins-contrib    
-
 RUN adduser shinken
 
 RUN pip install shinken
@@ -49,18 +47,19 @@ RUN mkdir -p /etc/shinken/custom_configs /usr/local/custom_plugins && \
 ADD config/conf/extra_plugins/* /usr/lib/nagios/plugins/
 
 RUN cd /usr/lib/nagios/plugins/ && chmod a+x * && \
-    chmod u+s check_apt restart_service check_ping check_icmp apt_update
-# check_fping    
+    chmod u+s check_apt restart_service check_ping check_icmp apt_update check_fping
 
 RUN rm -f /etc/nginx/sites-enabled/* /etc/nginx/sites-available/*
 ADD config/conf/nginx.conf /etc/nginx/
-ADD config/circus.d/* /etc/circus.d/
+
+ADD config/supervisor/conf.d/* /etc/supervisor/conf.d/
+
 ADD config/setup.d/shinken /etc/setup.d/20-shinken
+
 ADD config/setup.d/nginx /etc/setup.d/30-nginx
+
 RUN chmod +x /etc/setup.d/*
 
 VOLUME      ["/etc/shinken/custom_configs", "/usr/local/custom_plugins"]
 
 EXPOSE  80
-
-

@@ -1,5 +1,6 @@
 #!/bin/bash
 
 echo "---> Config circusd nginx ..."
-envtpl /etc/circus.d/nginx.ini.tpl --keep-template --allow-missing
+#envtpl /etc/circus.d/nginx.ini.tpl --keep-template --allow-missing
+envtpl /etc/supervisor/conf.d/nginx.conf.tpl --keep-template --allow-missing
 
